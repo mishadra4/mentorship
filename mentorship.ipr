@@ -15,6 +15,8 @@
             <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
             <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.13" />
             <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+            <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+            <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.1" />
           </element>
         </element>
       </root>
@@ -231,6 +233,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: javax.servlet:jstl:1.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/1.2/jstl-1.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/1.2/jstl-1.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/1.2/jstl-1.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: javax.servlet:servlet-api:2.5">

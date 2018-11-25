@@ -14,8 +14,8 @@ import java.io.IOException;
 
 @WebServlet("/removeBook")
 public class RemoveBookServlet extends HttpServlet {
-    private Book book;
     private final BookDaoImpl bookDaoImpl = new BookDaoImpl();
+    private Book book;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/view/page/updateBookPage.jsp").forward(request, response);

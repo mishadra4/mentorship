@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 @WebServlet("/editBook")
 public class EditBookServlet extends HttpServlet {
-    private Book book;
     private final BookDaoImpl bookDaoImpl = new BookDaoImpl();
+    private List<Book> books;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/view/page/updateBookPage.jsp").forward(request, response);
@@ -25,8 +27,8 @@ public class EditBookServlet extends HttpServlet {
         if (StringUtils.isEmptyOrWhitespaceOnly(request.getParameter("id"))) {
             throw new MissingFieldsException();
         } else {
-            book = bookDaoImpl.getBookById(Integer.valueOf(request.getParameter("id")));
-            request.setAttribute("book", book);
+            books = Collections.singletonList(bookDaoImpl.getBookById(Integer.valueOf(request.getParameter("id"))));
+            request.setAttribute("books", books);
             doGet(request, response);
         }
     }

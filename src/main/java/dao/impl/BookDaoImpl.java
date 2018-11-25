@@ -21,7 +21,7 @@ public class BookDaoImpl implements BookDao {
     private PreparedStatement statement = null;
     private ResultSet rs = null;
 
-    public BookDaoImpl(){
+    public BookDaoImpl() {
         try {
             connection = ConnectionProvider.getLibraryDBConnection();
         } catch (SQLException e) {
@@ -34,7 +34,7 @@ public class BookDaoImpl implements BookDao {
         connection.close();
     }
 
-    public Book getBookById(int ID){
+    public Book getBookById(int ID) {
         Book book = null;
         try {
             statement = connection.prepareStatement(FIND_BOOK_BY_ID_QUERY);
@@ -49,7 +49,7 @@ public class BookDaoImpl implements BookDao {
         return book;
     }
 
-    public List<Book> getBooksByReaderID(int ID){
+    public List<Book> getBooksByReaderID(int ID) {
         List<Book> books = Collections.emptyList();
         try {
             statement = connection.prepareStatement(FIND_BOOKS_BY_STUDENT_ID_QUERY);
@@ -62,7 +62,7 @@ public class BookDaoImpl implements BookDao {
         return books;
     }
 
-    public void RemoveBookById(int ID){
+    public void RemoveBookById(int ID) {
         try {
             statement = connection.prepareStatement(REMOVE_BOOK_BY_ID_QUERY);
             statement.setInt(1, ID);
@@ -73,7 +73,7 @@ public class BookDaoImpl implements BookDao {
         }
     }
 
-    public void insertBook(Book book){
+    public void insertBook(Book book) {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(INSERT_BOOK_QUERY);
@@ -86,7 +86,7 @@ public class BookDaoImpl implements BookDao {
         }
     }
 
-    public void updateBook(Book book){
+    public void updateBook(Book book) {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(UPDATE_BOOK_QUERY);
@@ -102,14 +102,14 @@ public class BookDaoImpl implements BookDao {
 
     private List<Book> retrieveBooks(ResultSet rs) throws SQLException {
         List<Book> books = new ArrayList<>();
-        while (!rs.isLast()){
+        while (!rs.isLast()) {
             books.add(retrieveBookModel(rs));
         }
         rs.close();
         return books;
     }
 
-    private Book retrieveBookModel(ResultSet resultSet){
+    private Book retrieveBookModel(ResultSet resultSet) {
         Book book = new Book();
         try {
             resultSet.next();

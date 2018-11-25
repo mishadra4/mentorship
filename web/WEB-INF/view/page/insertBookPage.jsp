@@ -18,6 +18,7 @@
         <br/><br/>
         <input type="submit" value="Insert"/>
     </form>
+    <a href="/editBook"><button type="button">Edit books</button></a>
 </body>
 
 </html>
