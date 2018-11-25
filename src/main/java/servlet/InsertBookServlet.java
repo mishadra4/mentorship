@@ -1,7 +1,7 @@
 package servlet;
 
 import com.mysql.cj.util.StringUtils;
-import dao.BookDao;
+import dao.impl.BookDaoImpl;
 import exception.MissingFieldsException;
 import model.Book;
 
@@ -15,12 +15,12 @@ import java.io.IOException;
 
 @WebServlet("/insertBook")
 public class InsertBookServlet extends HttpServlet {
-    BookDao bookDao = new BookDao();
+    BookDaoImpl bookDaoImpl = new BookDaoImpl();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/view/page/insertBookPage.jsp");
 
-        Book book = bookDao.getBookforId(1);
+        Book book = bookDaoImpl.getBookById(1);
         System.out.println(book.getPages());
         System.out.println(book.getTitle());
         view.forward(request, response);
@@ -33,7 +33,7 @@ public class InsertBookServlet extends HttpServlet {
             Book book = new Book();
             book.setTitle(request.getParameter("title"));
             book.setPages(Integer.valueOf(request.getParameter("pages")));
-            bookDao.insertBook(book);
+            bookDaoImpl.insertBook(book);
             doGet(request, response);
         }
     }

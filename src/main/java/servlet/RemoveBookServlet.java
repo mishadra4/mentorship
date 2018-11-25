@@ -1,7 +1,7 @@
 package servlet;
 
 import com.mysql.cj.util.StringUtils;
-import dao.BookDao;
+import dao.impl.BookDaoImpl;
 import exception.MissingFieldsException;
 import model.Book;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/removeBook")
 public class RemoveBookServlet extends HttpServlet {
     private Book book;
-    private final BookDao bookDao = new BookDao();
+    private final BookDaoImpl bookDaoImpl = new BookDaoImpl();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/view/page/updateBookPage.jsp").forward(request, response);
@@ -25,7 +25,7 @@ public class RemoveBookServlet extends HttpServlet {
         if (StringUtils.isEmptyOrWhitespaceOnly(request.getParameter("id"))) {
             throw new MissingFieldsException();
         } else {
-            bookDao.RemoveBookById(Integer.valueOf(request.getParameter("id")));
+            bookDaoImpl.RemoveBookById(Integer.valueOf(request.getParameter("id")));
             doGet(request, response);
         }
     }

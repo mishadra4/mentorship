@@ -1,8 +1,17 @@
 package model;
 
 public class Reader {
+    private int ID;
     private String firstName;
     private String lastName;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     public String getFirstName() {
         return firstName;
