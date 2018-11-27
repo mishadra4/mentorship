@@ -13,12 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static constant.MentorshipConstants.BOOK_PAGES;
+import static constant.MentorshipConstants.BOOK_TITLE;
+
 @WebServlet("/insertBook")
 public class InsertBookServlet extends HttpServlet {
+
+    private static final String INSERT_BOOK_JSP_PATH = "/WEB-INF/view/page/insertBookPage.jsp";
+
     BookDaoImpl bookDaoImpl = new BookDaoImpl();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/view/page/insertBookPage.jsp");
+        RequestDispatcher view = request.getRequestDispatcher(INSERT_BOOK_JSP_PATH);
 
         Book book = bookDaoImpl.getBookById(1);
         System.out.println(book.getPages());
@@ -27,12 +33,12 @@ public class InsertBookServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (StringUtils.isEmptyOrWhitespaceOnly(request.getParameter("title")) || StringUtils.isEmptyOrWhitespaceOnly(request.getParameter("pages"))) {
+        if (StringUtils.isEmptyOrWhitespaceOnly(request.getParameter(BOOK_TITLE)) || StringUtils.isEmptyOrWhitespaceOnly(request.getParameter(BOOK_PAGES))) {
             throw new MissingFieldsException();
         } else {
             Book book = new Book();
-            book.setTitle(request.getParameter("title"));
-            book.setPages(Integer.valueOf(request.getParameter("pages")));
+            book.setTitle(request.getParameter(BOOK_TITLE));
+            book.setPages(Integer.valueOf(request.getParameter(BOOK_PAGES)));
             bookDaoImpl.insertBook(book);
             doGet(request, response);
         }

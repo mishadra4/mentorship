@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static constant.MentorshipConstants.BOOK_ID;
+
 @WebServlet("/findBooksByReader")
 public class findBookServlet extends HttpServlet {
     private BookDaoImpl bookDao = new BookDaoImpl();
@@ -22,7 +24,7 @@ public class findBookServlet extends HttpServlet {
         if (StringUtils.isEmptyOrWhitespaceOnly(req.getParameter("id"))) {
             throw new MissingFieldsException();
         } else {
-            books = bookDao.getBooksByReaderID(Integer.parseInt(req.getParameter("id")));
+            books = bookDao.getBooksByReaderID(Integer.parseInt(req.getParameter(BOOK_ID)));
             req.setAttribute("books", books);
             doGet(req, resp);
         }

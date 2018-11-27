@@ -9,13 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BookDaoImpl implements BookDao {
+import static constant.MentorshipConstants.*;
 
-    private static final String FIND_BOOK_BY_ID_QUERY = "SELECT * FROM book WHERE book.id = ?";
-    private static final String FIND_BOOKS_BY_STUDENT_ID_QUERY = "SELECT * FROM library.book INNER JOIN library.reader_has_book ON book.id = book_id WHERE reader_id = ?";
-    private static final String REMOVE_BOOK_BY_ID_QUERY = "DELETE FROM book WHERE book.id = ?";
-    private static final String INSERT_BOOK_QUERY = "INSERT INTO book(title, pages) VALUES (?, ?)";
-    private static final String UPDATE_BOOK_QUERY = "UPDATE book SET book.title = ?, book.pages = ? WHERE book.id = ?";
+public class BookDaoImpl implements BookDao {
 
     private Connection connection;
     private PreparedStatement statement = null;
@@ -113,9 +109,9 @@ public class BookDaoImpl implements BookDao {
         Book book = new Book();
         try {
             resultSet.next();
-            book.setID(resultSet.getInt("ID"));
-            book.setTitle(resultSet.getString("title"));
-            book.setPages(resultSet.getInt("pages"));
+            book.setID(resultSet.getInt(BOOK_ID));
+            book.setTitle(resultSet.getString(BOOK_TITLE));
+            book.setPages(resultSet.getInt(BOOK_PAGES));
         } catch (SQLException e) {
             e.printStackTrace();
         }

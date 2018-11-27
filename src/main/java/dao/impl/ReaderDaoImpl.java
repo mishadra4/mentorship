@@ -4,18 +4,17 @@ import dao.ConnectionProvider;
 import dao.ReaderDao;
 import model.Reader;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ReaderDaoImpl implements ReaderDao {
+import static constant.MentorshipConstants.*;
 
-    private static final String FIND_READER_BY_ID_QUERY = "SELECT * FROM reader WHERE reader.id = ?";
-    private static final String FIND_READERS_BY_BOOK_ID_QUERY = "SELECT * FROM reader JOIN reader_has_book ON reader.id = reader_id WHERE book_id = ?";
-    private static final String REMOVE_READER_BY_ID_QUERY = "DELETE FROM reader WHERE reader.id = ?";
-    private static final String INSERT_READER_QUERY = "INSERT INTO reader(first_name, last_name) VALUES (?, ?)";
-    private static final String UPDATE_READER_QUERY = "UPDATE reader SET reader.first_name = ?, reader.last_name = ? WHERE reader.id = ?";
+public class ReaderDaoImpl implements ReaderDao {
 
     private Connection connection;
     private PreparedStatement statement = null;
@@ -113,9 +112,9 @@ public class ReaderDaoImpl implements ReaderDao {
         Reader reader = new Reader();
         try {
             resultSet.next();
-            reader.setID(resultSet.getInt("ID"));
-            reader.setFirstName(resultSet.getString("first_name"));
-            reader.setLastName(resultSet.getString("last_name"));
+            reader.setID(resultSet.getInt(READER_ID));
+            reader.setFirstName(resultSet.getString(READER_FIRST_NAME));
+            reader.setLastName(resultSet.getString(READER_LAST_NAME));
         } catch (SQLException e) {
             e.printStackTrace();
         }
