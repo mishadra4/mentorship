@@ -1,9 +1,17 @@
 package model;
 
+import dao.BookDao;
+import dao.impl.BookDaoImpl;
+
+import java.util.List;
+
 public class Reader {
     private int ID;
     private String firstName;
     private String lastName;
+    private List<Book> books;
+
+    private BookDao bookDao = new BookDaoImpl();
 
     public int getID() {
         return ID;
@@ -29,4 +37,12 @@ public class Reader {
         this.lastName = lastName;
     }
 
+    public List<Book> getBooks() {
+        books = bookDao.getBooksByReaderID(ID);
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 }

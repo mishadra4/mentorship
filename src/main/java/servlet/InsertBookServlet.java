@@ -24,12 +24,7 @@ public class InsertBookServlet extends HttpServlet {
     BookDaoImpl bookDaoImpl = new BookDaoImpl();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher view = request.getRequestDispatcher(INSERT_BOOK_JSP_PATH);
-
-        Book book = bookDaoImpl.getBookById(1);
-        System.out.println(book.getPages());
-        System.out.println(book.getTitle());
-        view.forward(request, response);
+        request.getRequestDispatcher(INSERT_BOOK_JSP_PATH).forward(request, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

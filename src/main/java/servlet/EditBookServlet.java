@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import static constant.MentorshipConstants.BOOKS;
 import static constant.MentorshipConstants.BOOK_ID;
 
 @WebServlet("/editBook")
@@ -33,7 +34,7 @@ public class EditBookServlet extends HttpServlet {
             throw new MissingFieldsException();
         } else {
             books = Collections.singletonList(bookDaoImpl.getBookById(Integer.valueOf(request.getParameter(BOOK_ID))));
-            request.setAttribute("books", books);
+            request.setAttribute(BOOKS, books);
             doGet(request, response);
         }
     }
