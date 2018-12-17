@@ -39,8 +39,8 @@ public class RegistrationServlet extends HttpServlet {
             user.setUsername(req.getParameter(USER_USERNAME));
             user.setPassword(req.getParameter(USER_PASSWORD));
             user.setTokenId(UUID.randomUUID().toString());
-            user.setTokenExpires(LocalDateTime.now().plusMinutes(INTEGER_ONE));
-            resp.addCookie(new Cookie("tokenId", user.getTokenId()));
+            user.setTokenExpires(LocalDateTime.now());
+            resp.addCookie(new Cookie(USER_TOKEN, user.getTokenId()));
             userController.saveUser(user);
         }
         resp.sendRedirect(LOGIN_URI);

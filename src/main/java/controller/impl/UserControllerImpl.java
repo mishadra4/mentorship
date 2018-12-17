@@ -22,4 +22,23 @@ public class UserControllerImpl implements UserController {
     public boolean isRegistered(User user) {
         return userService.isRegistered(user);
     }
+
+    public void extendTokenExpirationDate(User user) {
+        userService.extendTokenExpirationDate(user);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userService.getUserByUsername(username);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userService.updateUser(user);
+    }
+
+    public void expireToken(User user){
+        userService.expireToken(user);
+    }
+
 }

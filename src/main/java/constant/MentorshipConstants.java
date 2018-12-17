@@ -24,6 +24,7 @@ public class MentorshipConstants {
     public static final String USER_USERNAME = "username";
     public static final String USER_PASSWORD = "password";
     public static final String USER_TOKEN = "token";
+    public static final String SESSION_USER = "user";
     public static final String USER_TOKEN_EXPIRATION = "expiration_date";
     public static final String LOGIN_URI = "/login";
     public static final String LOGOUT_URI = "/logout";

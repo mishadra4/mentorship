@@ -22,7 +22,6 @@ import static constant.MentorshipConstants.*;
 public class LoginServlet extends HttpServlet {
 
     UserController userController = new UserControllerImpl();
-    UserDao userDao = new UserDaoImpl();
 
     private static final String LOGIN_JSP_PATH = "/WEB-INF/view/page/login.jsp";
 
@@ -44,13 +43,12 @@ public class LoginServlet extends HttpServlet {
             user.setUsername(req.getParameter(USER_USERNAME));
             user.setPassword(req.getParameter(USER_PASSWORD));
             user.setTokenId(UUID.randomUUID().toString());
-            user.setTokenExpires(LocalDateTime.now().plusMinutes(INTEGER_ONE));
-            userDao.updateUser(user);
-            resp.addCookie(new Cookie("tokenId", user.getTokenId()));
+            resp.addCookie(new Cookie(USER_TOKEN, user.getTokenId()));
 
             if(userController.isAuthorized(user)){
                 createSession(req);
-                req.getSession(false).setAttribute("user", user);
+                req.getSession(false).setAttribute(SESSION_USER, user);
+                userController.extendTokenExpirationDate(user);
                 resp.sendRedirect(SUCCESS_URI);
             } else {
                 doGet(req, resp);

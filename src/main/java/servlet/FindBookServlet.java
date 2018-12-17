@@ -17,11 +17,14 @@ import static constant.MentorshipConstants.BOOKS;
 import static constant.MentorshipConstants.BOOK_ID;
 
 @WebServlet("/findBooksByReader")
-public class findBookServlet extends HttpServlet {
+public class FindBookServlet extends HttpServlet {
+
+    private static final String FIND_BOOKS_JSP_PATH = "/WEB-INF/view/page/updateBookPage.jsp";
+
     private BookDaoImpl bookDao = new BookDaoImpl();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Book> books = null;
+        List<Book> books;
         if (StringUtils.isEmptyOrWhitespaceOnly(req.getParameter(BOOK_ID))) {
             throw new MissingFieldsException();
         } else {
@@ -33,6 +36,6 @@ public class findBookServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/WEB-INF/view/page/updateBookPage.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher(FIND_BOOKS_JSP_PATH).forward(req, resp);
     }
 }

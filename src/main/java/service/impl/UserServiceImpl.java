@@ -9,9 +9,12 @@ import model.User;
 import service.UserService;
 import service.util.HashUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+
+import static constant.MentorshipConstants.INTEGER_ONE;
 
 public class UserServiceImpl implements UserService {
 
@@ -46,6 +49,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isRegistered(User user) {
         return !StringUtils.isNullOrEmpty(userDao.getHashPassword(user.getUsername()));
+    }
+
+    public void extendTokenExpirationDate(User user){
+        user.setTokenExpires(LocalDateTime.now().plusMinutes(INTEGER_ONE));
+        updateUser(user);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userDao.getUserByUsername(username);
+    }
+
+    public void updateUser(User user){
+        userDao.updateUser(user);
+    }
+
+    @Override
+    public void expireToken(User user) {
+        user.setTokenExpires(LocalDateTime.now());
+        userDao.updateUser(user);
     }
 
     private void hashPassword(User user) {

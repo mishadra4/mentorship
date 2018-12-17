@@ -23,11 +23,11 @@ public class EditBookServlet extends HttpServlet {
     private static final String UPDATE_BOOK_JSP_PATH = "/WEB-INF/view/page/updateBookPage.jsp";
     private final BookDaoImpl bookDaoImpl = new BookDaoImpl();
 
-    private List<Book> books;
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher(UPDATE_BOOK_JSP_PATH).forward(request, response);
     }
+
+    private List<Book> books;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (StringUtils.isEmptyOrWhitespaceOnly(request.getParameter(BOOK_ID))) {
