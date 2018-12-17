@@ -8,14 +8,15 @@ import model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
-import static constant.MentorshipConstants.LOGIN_URI;
-import static constant.MentorshipConstants.USER_PASSWORD;
-import static constant.MentorshipConstants.USER_USERNAME;
+import static constant.MentorshipConstants.*;
 
 @WebServlet("/register")
 public class RegistrationServlet extends HttpServlet {
@@ -37,6 +38,9 @@ public class RegistrationServlet extends HttpServlet {
             User user = new User();
             user.setUsername(req.getParameter(USER_USERNAME));
             user.setPassword(req.getParameter(USER_PASSWORD));
+            user.setTokenId(UUID.randomUUID().toString());
+            user.setTokenExpires(LocalDateTime.now().plusMinutes(INTEGER_ONE));
+            resp.addCookie(new Cookie("tokenId", user.getTokenId()));
             userController.saveUser(user);
         }
         resp.sendRedirect(LOGIN_URI);

@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isAuthorized(User user) {
-        String hashedPassword = userDao.getHashPassword(user.getUsername());
+        String hashedPassword = userDao.getHashPassword(user.getPassword());
         boolean isAuthorized = !StringUtils.isNullOrEmpty(hashedPassword) && HashUtils.verifyAndUpdateHash(user.getPassword(), hashedPassword, update);
         if (!isAuthorized) {
             throw new UnauthorizedPrincipalException();

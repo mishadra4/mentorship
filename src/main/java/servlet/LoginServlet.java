@@ -3,17 +3,18 @@ package servlet;
 import com.mysql.cj.util.StringUtils;
 import controller.UserController;
 import controller.impl.UserControllerImpl;
+import dao.UserDao;
+import dao.impl.UserDaoImpl;
 import exception.MissingFieldsException;
 import model.Book;
 import model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static constant.MentorshipConstants.*;
 
@@ -21,6 +22,7 @@ import static constant.MentorshipConstants.*;
 public class LoginServlet extends HttpServlet {
 
     UserController userController = new UserControllerImpl();
+    UserDao userDao = new UserDaoImpl();
 
     private static final String LOGIN_JSP_PATH = "/WEB-INF/view/page/login.jsp";
 
@@ -41,8 +43,14 @@ public class LoginServlet extends HttpServlet {
             User user = new User();
             user.setUsername(req.getParameter(USER_USERNAME));
             user.setPassword(req.getParameter(USER_PASSWORD));
+            user.setTokenId(UUID.randomUUID().toString());
+            user.setTokenExpires(LocalDateTime.now().plusMinutes(INTEGER_ONE));
+            userDao.updateUser(user);
+            resp.addCookie(new Cookie("tokenId", user.getTokenId()));
+
             if(userController.isAuthorized(user)){
                 createSession(req);
+                req.getSession(false).setAttribute("user", user);
                 resp.sendRedirect(SUCCESS_URI);
             } else {
                 doGet(req, resp);

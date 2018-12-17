@@ -8,4 +8,7 @@ public interface UserDao {
 
     String getHashPassword(String username);
 
+    User getUserByUsername(String username);
+
+    void updateUser(User user);
 }

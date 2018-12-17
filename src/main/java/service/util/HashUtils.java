@@ -5,7 +5,7 @@ import service.CryptService;
 import java.util.function.Function;
 
 public class HashUtils {
-    private static final CryptService bcrypt = new CryptService(11);
+    private static final CryptService bcrypt = new CryptService(10);
 
     public static String hash(String password) {
         return bcrypt.hash(password);
